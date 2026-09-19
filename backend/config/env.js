@@ -39,6 +39,7 @@ const paymentProvider = (process.env.PAYMENT_PROVIDER || 'mock').toLowerCase();
 export const env = {
   NODE_ENV: nodeEnv,
   PORT: Number(process.env.PORT || 5001),
+  HOST: process.env.HOST || '0.0.0.0',
   MONGODB_URI: process.env.MONGODB_URI,
   CORS_ORIGIN: process.env.CORS_ORIGIN || '*',
 

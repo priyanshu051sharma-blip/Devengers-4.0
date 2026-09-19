@@ -183,7 +183,7 @@ async function startServer() {
   await seedDefaultUsers();
   await initializeTrafficSimulation(io);
 
-  httpServer.listen(env.PORT, '127.0.0.1', () => {
+  httpServer.listen(env.PORT, env.HOST, () => {
     console.log(`====================================================`);
     console.log(`🚀 SMART HORIZON BENGALURU SMART CITY SERVER RUNNING ON PORT ${env.PORT}`);
     console.log(`📡 REAL-TIME SOCKET.IO ENGINE: [ONLINE]`);
