@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { API_BASE_URL, SOCKET_URL } from '../../config/runtime';
 import { QRCodeSVG } from 'qrcode.react';
 import {
   Camera,
@@ -67,7 +68,7 @@ export default function ConnectedVehicleDashboard() {
   // Video Source & Live Dashcam State (Primary: iPhone USB / Cam | Secondary: IP URL)
   const [videoSourceMode, setVideoSourceMode] = useState('WEBCAM'); // 'WEBCAM' (Primary) | 'WIFI_STREAM' (Secondary) | 'IPHONE_RELAY' | 'SIMULATION'
   const [wifiStreamUrl, setWifiStreamUrl] = useState('http://admin:admin@jaimiss-iphone.local:8081/video');
-  const [wifiProxyUrl, setWifiProxyUrl] = useState('http://127.0.0.1:8000/api/ml/dashcam-stream?stream_url=' + encodeURIComponent('http://admin:admin@jaimiss-iphone.local:8081/video'));
+  const [wifiProxyUrl, setWifiProxyUrl] = useState(`${API_BASE_URL}/api/ml/dashcam-stream?stream_url=${encodeURIComponent('http://admin:admin@jaimiss-iphone.local:8081/video')}`);
   const [wifiStreamConnected, setWifiStreamConnected] = useState(false);
   const [cameraDevices, setCameraDevices] = useState([]);
   const [selectedCameraDeviceId, setSelectedCameraDeviceId] = useState('');
@@ -145,7 +146,7 @@ export default function ConnectedVehicleDashboard() {
 
   // Socket.IO Listener for iPhone live frame broadcast
   useEffect(() => {
-    const socket = io({ reconnection: true });
+    const socket = io(SOCKET_URL, { reconnection: true });
     socketRef.current = socket;
 
     socket.on('v2v_mobile_frame_broadcast', (data) => {
@@ -324,7 +325,7 @@ export default function ConnectedVehicleDashboard() {
     }
     const cleanUrl = url.trim();
     setWifiStreamUrl(cleanUrl);
-    const proxy = `http://127.0.0.1:8000/api/ml/dashcam-stream?stream_url=${encodeURIComponent(cleanUrl)}`;
+    const proxy = `${API_BASE_URL}/api/ml/dashcam-stream?stream_url=${encodeURIComponent(cleanUrl)}`;
     setWifiProxyUrl(proxy);
     setVideoSourceMode('WIFI_STREAM');
     setIsLiveStreaming(true);

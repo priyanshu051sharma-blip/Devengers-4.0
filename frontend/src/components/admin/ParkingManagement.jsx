@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 
 const LANE_LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
@@ -75,7 +76,7 @@ export default function ParkingManagement() {
     fetchViolations();
     fetchStats();
     
-    const socket = io();
+    const socket = io(SOCKET_URL);
     
     socket.on('illegal-parking-detected', () => {
       fetchViolations();

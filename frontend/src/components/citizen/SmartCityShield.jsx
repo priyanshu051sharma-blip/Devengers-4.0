@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { 
   User, 
   Shield, 
@@ -141,7 +142,7 @@ export default function SmartCityShield() {
     };
     fetchCommunityHazards();
 
-    const socket = io({ transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
 
     socket.on('hazard_reported', fetchCommunityHazards);
     socket.on('hazard_verified', fetchCommunityHazards);

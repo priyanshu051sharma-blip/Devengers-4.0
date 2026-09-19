@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { 
   MapPin, 
   Navigation, 
@@ -261,7 +262,7 @@ export default function BangaloreTrafficMap() {
 
   // 2. Real-Time Socket.IO Synchronization
   useEffect(() => {
-    const socket = io({
+    const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 5
     });

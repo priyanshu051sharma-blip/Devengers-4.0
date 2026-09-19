@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { 
   Bot, 
   Cpu, 
@@ -145,7 +146,7 @@ export default function AIAgentCenter() {
 
   // 2. Initialize Real-Time Socket.IO Connection for All 13 Pipeline Events
   useEffect(() => {
-    const socket = io({
+    const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 5
     });

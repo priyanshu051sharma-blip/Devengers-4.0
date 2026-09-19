@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, AlertTriangle, MapPin, Clock, DollarSign, Phone, CheckCircle, XCircle, Bell, FileText } from 'lucide-react';
+import { API_BASE_URL } from '../../config/runtime';
 
 export default function IllegalParkingDetection() {
   const [violations, setViolations] = useState([]);
@@ -20,7 +21,7 @@ export default function IllegalParkingDetection() {
 
   const fetchViolations = async () => {
     try {
-      const response = await fetch('/api/illegal-parking', {
+      const response = await fetch(`${API_BASE_URL}/api/illegal-parking`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -40,7 +41,7 @@ export default function IllegalParkingDetection() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/illegal-parking/stats/summary', {
+      const response = await fetch(`${API_BASE_URL}/api/illegal-parking/stats/summary`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

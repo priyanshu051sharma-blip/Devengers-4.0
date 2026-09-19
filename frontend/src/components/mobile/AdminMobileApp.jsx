@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { Link } from 'react-router-dom';
 import { 
   Shield, 
@@ -124,7 +125,7 @@ export default function AdminMobileApp({ onSwitchToCitizen }) {
     detectLiveLocation();
     fetchCommunityData();
 
-    const socket = io({ transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
     socket.on('challan_issued', (data) => {
       setRecentChallans(prev => [
         { id: data.challanNumber, vehicle: data.vehicleNumber, type: data.violationType, fine: data.fine, time: 'Just now', officer: data.officer || 'Police Field Unit' },

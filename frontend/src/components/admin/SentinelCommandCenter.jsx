@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { Activity, AlertTriangle, Car, MapPin, Play, ShieldCheck } from 'lucide-react';
 
 const formatTime = (value) => value ? new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '-';
@@ -21,7 +22,7 @@ export default function SentinelCommandCenter() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const socket = io({ reconnectionAttempts: 3 });
+    const socket = io(SOCKET_URL, { reconnectionAttempts: 3 });
     socket.on('sentinel-demo-update', setResult);
     return () => socket.disconnect();
   }, []);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, AlertTriangle, MapPin, Clock, CheckCircle, XCircle, Bot } from 'lucide-react';
+import { API_BASE_URL } from '../../config/runtime';
 
 export default function EncroachmentMonitoring() {
   const [encroachments, setEncroachments] = useState([]);
@@ -15,7 +16,7 @@ export default function EncroachmentMonitoring() {
 
   const fetchEncroachments = async () => {
     try {
-      const response = await fetch('/api/encroachments', {
+      const response = await fetch(`${API_BASE_URL}/api/encroachments`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

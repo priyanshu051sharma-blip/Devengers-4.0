@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { 
@@ -47,7 +48,7 @@ export default function MyFines() {
   useEffect(() => {
     fetchFines();
     // Connect Socket.IO to relative path (Vite proxy / backend server)
-    const socket = io({
+   const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
       reconnection: true
     });

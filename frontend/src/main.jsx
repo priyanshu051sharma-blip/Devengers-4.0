@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import axios from 'axios';
 import App from './App';
 import './index.css';
+import { API_BASE_URL } from './config/runtime';
+
+axios.defaults.baseURL = API_BASE_URL || undefined;
 
 // Configure axios globally BEFORE rendering App
 let refreshRequest = null;

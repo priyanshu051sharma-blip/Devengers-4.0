@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { 
   Car, 
   Radio, 
@@ -112,7 +113,7 @@ export default function V2VSafetyCenter() {
 
   // 2. Real-time Socket.IO Listeners
   useEffect(() => {
-    const socket = io({ transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
     socketRef.current = socket;
 
     const logEvent = (name, data, type = 'info') => {

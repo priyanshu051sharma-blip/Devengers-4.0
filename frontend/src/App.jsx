@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from './config/runtime';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import CitizenDashboard from './pages/CitizenDashboard';
@@ -25,7 +26,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const socket = io({
+    const socket = io(SOCKET_URL, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,

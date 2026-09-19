@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import { Link } from 'react-router-dom';
 import MyBookings from '../citizen/MyBookings';
 import ReportRoadIssue from '../citizen/ReportRoadIssue';
@@ -185,7 +186,7 @@ export default function CitizenMobileApp({ onSwitchToAdmin }) {
     detectLiveLocation();
     fetchCommunityData();
 
-    const socket = io({ transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
 
     socket.on('hazard_reported', fetchCommunityData);
     socket.on('hazard_verified', (hazard) => {

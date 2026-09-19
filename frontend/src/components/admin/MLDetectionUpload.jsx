@@ -38,6 +38,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config/runtime';
 import axios from 'axios';
 
 const MLDetectionUpload = () => {
@@ -70,7 +71,7 @@ const MLDetectionUpload = () => {
 
   // Initialize Socket.IO Real-time alerts
   useEffect(() => {
-    const socket = io({
+    const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
       reconnection: true
     });

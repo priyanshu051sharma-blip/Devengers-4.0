@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../config/runtime';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import {
@@ -82,7 +83,7 @@ export default function MobileV2VDashcam() {
 
   // 1. Initialize Socket.IO Client Connection
   useEffect(() => {
-    const socket = io({
+    const socket = io(SOCKET_URL, {
       reconnection: true,
       reconnectionDelay: 1000
     });
