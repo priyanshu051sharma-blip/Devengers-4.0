@@ -15,8 +15,7 @@ RUN pip install --no-cache-dir -r ml_requirements.txt
 COPY ml_backend_api.py .
 COPY urbanflow_app ./urbanflow_app
 COPY models ./models
-COPY yolov5s.pt .
 COPY backend/uploads ./uploads
 
 EXPOSE 8000
-CMD ["uvicorn", "ml_backend_api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn ml_backend_api:app --host 0.0.0.0 --port ${PORT:-8000}"]
